@@ -1,4 +1,4 @@
-* {
-    color: green;
-    font-family: arial;
+#invalid_login {
+    font-weight: bold;
+    color: rgb(255, 0, 0);
 }

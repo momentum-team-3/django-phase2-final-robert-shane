@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>List of Snippets</h1>
+    {% for snippet in list_snippet %}
+           
+    <a href="{% url 'view_snippet' %}">Here is a closer look</a>
+        
+    {% endfor %}
+    {% endblock %}
+        

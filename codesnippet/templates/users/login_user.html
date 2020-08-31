@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Login</h2>
+
+{% if retry %}
+<p id="invalid_login">Invalid Username or Password</p>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div>
+        <button type="submit">Login</button>
+    </div>
+</form>
+
+<p>New? Click<a href="{% url 'create_user' %}">here</a> to make an account</p>
+{% endblock %}
