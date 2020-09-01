@@ -2,12 +2,18 @@
 
 {% block content %}
     <h1>List of Snippets</h1>
-  <!-- This Code underneath isn't doing anything --> 
-    <a href="{% url 'list_snippet' %}"></a>
+    <!-- This Code underneath isn't doing anything 
+    <a href="{% url 'list_snippet' %}"></a> --> 
     
     {% for snippet in object_list %}
-        <a href="{% url 'view_snippet' %}">{{ snippet.title }},</a>
-        
-{% endfor %}
+    <div>
+      {{ snippet.title }}<br>
+      {{ snippet.body }}<br>
+      {{ snippet.description }}<br>
+    </div><br>
+      <div>
+        <a href="{% url 'view_snippet' snippet.pk %}">View Snippet</a>
+  </div><br><br>
+    {% endfor %}
 {% endblock %}
         
