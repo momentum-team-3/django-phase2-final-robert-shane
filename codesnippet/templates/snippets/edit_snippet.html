@@ -1,9 +1,9 @@
-{% extends base.html %}
+{% extends "base.html" %}
 
 {% block content %}
 <h1>Edit your Snippet</h1>
 <div>
-    <form action="{% url 'edit_snippet' pk=Snippet.pk %}" method="POST">
+    <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <div>

@@ -1,9 +1,14 @@
-{% extends base.html %}
+{% extends "base.html" %}
 <!-- This Page requires fixing to be able to see the snippets-->
 {% block content %}
-    <div>{{ object.title }}</div>
-    <div>{{ object.body }}</div>
-    <div>{{ object.description }}</div>
+    <div>{{ object.title }}</div><br>
+    <div>{{ object.body }}</div><br>
+    <div>{{ object.description }}</div><br>
+
+    <p>
+        <a href="{% url 'edit_snippet' snippet.pk %}">Edit</a>
+        <a href="{% url 'delete_snippet' snippet.pk %}">Delete</a>
+    </p>
 
 {% endblock %}
 

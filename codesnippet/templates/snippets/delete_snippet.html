@@ -1,9 +1,9 @@
-{% extends base.html %}
+{% extends "base.html" %}
 
 {% block content %}
 <h1>Delete your Snippet</h1>
 <div>
-    <form action="{% url 'delete_snippet' pk=Snippet.pk %}" method="POST">
+    <form method="POST">
         {% csrf_token %}
         <p><b>Are you sure?!?</b></p>
         <div>
