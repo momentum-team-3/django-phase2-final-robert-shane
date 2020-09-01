@@ -22,5 +22,5 @@ urlpatterns = [
     path('snippets/', include('snippets.urls')),
     path('users/', include('users.urls')),
     path('login/', RedirectView.as_view(url="users/login/", permanent=False)),
-    path('', RedirectView.as_view(url="snippets/", permanent=False)),
+    path('', RedirectView.as_view(url="snippets/list/", permanent=False)),
 ]

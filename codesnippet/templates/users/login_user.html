@@ -9,11 +9,18 @@
 
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    <p>
+        <label for="username">username</label>
+        <input type="text" id="username" name="username">
+        </p>
+        <p>
+        <label for="password">password</label>
+        <input type="password" id="password" name="password">
+        </p>
     <div>
         <button type="submit">Login</button>
     </div>
 </form>
 
-<p>New? Click<a href="{% url 'create_user' %}">here</a> to make an account</p>
+<p>Click <a href="{% url 'create_user' %}">here</a> to make an account</p>
 {% endblock %}

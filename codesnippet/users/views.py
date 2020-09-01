@@ -27,7 +27,7 @@ def login_user(request):
             return redirect(to="list_snippet")
         else:
             retry = True
-    return render(request, "users/login_user", {"retry": retry})
+    return render(request, "users/login_user.html", {"retry": retry})
 
 
 def logout_user(request):

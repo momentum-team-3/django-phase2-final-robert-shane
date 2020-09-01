@@ -7,6 +7,7 @@ from .models import Snippet
 # Create your views here.
 class list_snippet(ListView):
     model = Snippet
+    template_name = "snippets/list_snippet.html"
 
 class view_snippet(DetailView):
     model = Snippet
