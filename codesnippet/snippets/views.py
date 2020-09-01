@@ -8,9 +8,11 @@ from django.urls import reverse_lazy
 class list_snippet(ListView):
     model = Snippet
     template_name = "snippets/list_snippet.html"
-
+    
 class view_snippet(DetailView):
     model = Snippet
+    template_name = "snippets/view_snippet.html"
+"""success_url = reverse_lazy("edit_snippet")"""
 
 class add_snippet(CreateView):
     model = Snippet
@@ -20,6 +22,11 @@ class add_snippet(CreateView):
 
 class delete_snippet(DeleteView):
     model = Snippet
+    template_name = "snippets/delete_snippet.html"
+    success_url = reverse_lazy("list_snippet")
 
 class edit_snippet(UpdateView):
     model = Snippet
+    fields = ['title', 'body', 'description']
+    template_name = "snippets/edit_snippet.html"
+    success_url = reverse_lazy("view_snippet")
