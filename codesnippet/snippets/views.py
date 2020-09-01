@@ -3,7 +3,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import Snippet
-
+from django.urls import reverse_lazy
 # Create your views here.
 class list_snippet(ListView):
     model = Snippet
@@ -14,6 +14,9 @@ class view_snippet(DetailView):
 
 class add_snippet(CreateView):
     model = Snippet
+    fields = ['title', 'body', 'description']
+    template_name = "snippets/add_snippet.html"
+    success_url = reverse_lazy("list_snippet")
 
 class delete_snippet(DeleteView):
     model = Snippet

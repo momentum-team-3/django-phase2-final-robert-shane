@@ -2,10 +2,11 @@
 
 {% block content %}
     <h1>List of Snippets</h1>
-    {% for snippet in list_snippet %}
-           
-    <a href="{% url 'view_snippet' %}">Here is a closer look</a>
+    <a href="{% url 'list_snippets' pk=snippets.pk %}"></a>
+    
+    {% for snippet in object_list %}
+        <a href="{% url 'view_snippets' pk=snippets.pk %}">A Closer look!</a>
         
-    {% endfor %}
-    {% endblock %}
+{% endfor %}
+{% endblock %}
         
