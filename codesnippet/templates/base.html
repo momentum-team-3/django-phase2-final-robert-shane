@@ -5,27 +5,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Snippet</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <a class="link dim green b f1 f-headline-ns tc db mb3 mb4-ns" title="Home">Django Code Snippet</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
 </head>
 <body>
+    <section class="mw5 mw7-ns center bg-light-gray pa3 ph5-ns">
+      
     <header>
     {% block navbar %}
-    <nav>
-        <a href="{% url 'list_snippet' %}">Home</a>
+    <nav class="pa3 pa4-ns">
+        <div class="tc pb3">
+        <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green" href="{% url 'list_snippet' %}">Home</a>
         {% if request.user.is_authenticated %}
-        <a href="{% url 'add_snippet' %}">Create Snippet</a>
-        <a href="{% url 'list_user_snippet' %}">My Snippets</a>
-        <a href="{% url 'logout_user' %}">Logout</a>
+        <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green" href="{% url 'add_snippet' %}">Create Snippet</a>
+        <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green" href="{% url 'list_user_snippet' %}">My Snippets</a>
+        <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green" href="{% url 'logout_user' %}">Logout</a>
         {% else %}
-        <a href="{% url 'login_user' %}">Login</a>
+        <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green" href="{% url 'login_user' %}">Login</a>
         {% endif %}
+        </div>
     </nav>
     {% endblock %}
     </header>
     <div>
         {%block content%}
         {% endblock %}
-    </div>
+   </div>
+</section>
 </body>
+<footer class="pv4 ph3 ph5-m ph6-l mid-gray">
+    <small class="f6 db tc">BY: <b class="ttu">Shane Neiman & Robert Belonga</b></small>
+    <div class="tc mt3">
+      <a title="Language" class="f6 dib ph2 link mid-gray dim">Language</a>
+      <a title="Terms" class="f6 dib ph2 link mid-gray dim">Terms of Use</a>
+      <a title="Privacy" class="f6 dib ph2 link mid-gray dim">Privacy</a>
+    </div>
+  </footer>
 </html>

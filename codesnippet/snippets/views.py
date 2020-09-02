@@ -52,7 +52,7 @@ def copy_snippet(request, pk):
         if form.is_valid():
             form.save()
             return redirect("list_user_snippet")
-    return render(request, "copy_snippet.html", {
+    return render(request, "snippets/copy_snippet.html", {
         "form": form,
         "copy": copy
     })
