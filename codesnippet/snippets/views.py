@@ -30,4 +30,5 @@ class edit_snippet(UpdateView):
     model = Snippet
     fields = ['title', 'body', 'description']
     template_name = "snippets/edit_snippet.html"
-    success_url = reverse_lazy("view_snippet")
+    def get_success_url (self):
+        return f"/snippets/view/{self.kwargs['pk']}"

@@ -5,10 +5,11 @@
 <div>
     <form method="POST">
         {% csrf_token %}
+        {{ form.as_p }}
         <p><b>Are you sure?!?</b></p>
         <div>
             <button type="submit">Yes! Erase Away!</button>
-            <a href="{% url 'view_snippet' %}">Nevermind, don't Delete</a>
+            <a href="{% url 'view_snippet' snippet.pk %}">Nevermind, don't Delete</a>
         </div>
     </form>
 </div>
