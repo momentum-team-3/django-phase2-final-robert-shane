@@ -23,10 +23,10 @@ class add_snippet(CreateView):
 class delete_snippet(DeleteView):
     model = Snippet
     template_name = "snippets/delete_snippet.html"
-    success_url = reverse_lazy("list_snippet")
+
 
 class edit_snippet(UpdateView):
     model = Snippet
     fields = ['title', 'body', 'description']
     template_name = "snippets/edit_snippet.html"
-    success_url = reverse_lazy("view_snippet")
+    
