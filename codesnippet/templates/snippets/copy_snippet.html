@@ -1,0 +1,14 @@
+{%extends "base.html" %}
+
+{% block content %}
+<h2>Do you want to copy this note?</h2>
+<div>
+    <form action="{%% url 'copy_snippet' snippet.pk}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <button type="submit">Copy Snippet</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

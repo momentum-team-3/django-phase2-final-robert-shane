@@ -1,15 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import Snippet
 from django.urls import reverse_lazy
+import copy
+from .forms import Snippet_Form
 
 # Create your views here.
 class list_snippet(ListView):
     model = Snippet
     template_name = "snippets/list_snippet.html"
+
+
+class list_user_snippet(ListView):
+    model = Snippet
+    template_name = "snippets/list_user_snippet.html"
     
+
 class view_snippet(DetailView):
     model = Snippet
     template_name = "snippets/view_snippet.html"
@@ -32,3 +40,19 @@ class edit_snippet(UpdateView):
     template_name = "snippets/edit_snippet.html"
     def get_success_url (self):
         return f"/snippets/view/{self.kwargs['pk']}"
+
+
+def copy_snippet(request, pk):
+    snippet = Snippet.objects.get(pk)
+    copy = copy.deepcopy(snippet)
+    if request.method == "GET":
+        form = Snippet_Form(instance=copy)
+    else:
+        form = Snippet_Form(data=request.POST, instance=copy)
+        if form.is_valid():
+            form.save()
+            return redirect("list_user_snippet")
+    return render(request, "copy_snippet.html", {
+        "form": form,
+        "copy": copy
+    })
