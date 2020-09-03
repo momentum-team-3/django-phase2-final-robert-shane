@@ -3,13 +3,12 @@
 {% block content %}
 <h1>Edit your Snippet</h1>
 <div>
-    <!-- <form action="#">  (Will redirect to the same page we are on)-->
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <div>
             <button type="submit">Finalize Edit</button>
-           <!-- <a href="{% url 'view_snippet' snippet.pk %}">Return to View</a> -->
+           <a href="{% url 'view_snippet' snippet.pk %}">Cancel Edit</a> 
         </div>
     </form>
 </div>

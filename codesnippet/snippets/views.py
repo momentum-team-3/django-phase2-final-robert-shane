@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Snippet
 from django.urls import reverse_lazy
 import copy
@@ -13,30 +14,38 @@ class list_snippet(ListView):
     template_name = "snippets/list_snippet.html"
 
 
-class list_user_snippet(ListView):
+class list_user_snippet(LoginRequiredMixin, ListView):
+    login_url = "login_user"
     model = Snippet
     template_name = "snippets/list_user_snippet.html"
-    
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object_list"] = Snippet.objects.filter(self.request.user==object.snippet_of)
+
+    
 class view_snippet(DetailView):
     model = Snippet
     template_name = "snippets/view_snippet.html"
-"""success_url = reverse_lazy("edit_snippet")"""
 
-class add_snippet(CreateView):
+
+class add_snippet(LoginRequiredMixin, CreateView):
+    login_url = "login_user"
     model = Snippet
-    fields = ['title', 'body', 'description']
+    fields = ['title', 'body', 'language']
     template_name = "snippets/add_snippet.html"
     success_url = reverse_lazy("list_snippet")
 
-class delete_snippet(DeleteView):
+class delete_snippet(LoginRequiredMixin, DeleteView):
+    login_url = "login_user"
     model = Snippet
     template_name = "snippets/delete_snippet.html"
     success_url = reverse_lazy("list_snippet")
 
-class edit_snippet(UpdateView):
+class edit_snippet(LoginRequiredMixin, UpdateView):
+    login_url = "login_user"
     model = Snippet
-    fields = ['title', 'body', 'description']
+    fields = ['title', 'body', 'language']
     template_name = "snippets/edit_snippet.html"
     def get_success_url (self):
         return f"/snippets/view/{self.kwargs['pk']}"
@@ -46,7 +55,7 @@ def copy_snippet(request, pk):
     snippet = Snippet.objects.get(pk)
     copy = copy.deepcopy(snippet)
     if request.method == "GET":
-        form = Snippet_Form(instance=copy)
+        form = Snippet_Form(instance=snippet)
     else:
         form = Snippet_Form(data=request.POST, instance=copy)
         if form.is_valid():

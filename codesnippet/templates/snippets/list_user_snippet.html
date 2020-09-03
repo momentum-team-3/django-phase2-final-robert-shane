@@ -4,18 +4,17 @@
     <h1>Your Snippets</h1>
 
     {% for snippet in object_list %}
-        {% if snippet.snippet_of == request.user %}
         <div>
             {{ snippet.title }}<br>
             {{ snippet.body }}<br>
-            {{ snippet.description }}<br>
+            {{ snippet.language }}<br>
         </div><br>
         <div>
             <a href="{% url 'view_snippet' snippet.pk %}">View Snippet</a>
         </div><br><br>
-        {% else %}
+<!--
         <p>You don't have any snippets!</p>
         <a href="{% url 'add_snippet' %}">Create a Snippet!</a>
-        {% endif %}
+-->      
     {% endfor %}
 {% endblock %}
