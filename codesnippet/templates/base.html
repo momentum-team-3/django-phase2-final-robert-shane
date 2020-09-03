@@ -19,6 +19,7 @@
         {% if request.user.is_authenticated %}
         <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green" href="{% url 'add_snippet' %}">Create Snippet</a>
         <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green" href="{% url 'list_user_snippet' %}">My Snippets</a>
+        <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green" href="{% url 'search_snippet' %}">Search Snippets</a>
         <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green" href="{% url 'logout_user' %}">Logout</a>
         {% else %}
         <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green" href="{% url 'login_user' %}">Login</a>

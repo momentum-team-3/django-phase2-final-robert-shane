@@ -9,5 +9,5 @@ path("edit/<int:pk>", views.edit_snippet.as_view(), name="edit_snippet"),
 path("delete/<int:pk>", views.delete_snippet.as_view(), name="delete_snippet"),
 path("listuser/", views.list_user_snippet.as_view(), name="list_user_snippet"),
 path("copy/<int:pk>", views.copy_snippet, name="copy_snippet"),
-
+path("search/", views.search_snippet, name="search_snippet"),
 ]

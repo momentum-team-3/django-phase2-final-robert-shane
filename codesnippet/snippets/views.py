@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Snippet
 from django.urls import reverse_lazy
 import copy
-from .forms import Snippet_Form
+from .forms import Snippet_Form, SearchForm
 
 # Create your views here.
 class list_snippet(ListView):
@@ -65,3 +65,21 @@ def copy_snippet(request, pk):
         "form": form,
         "copy": copy
     })
+
+
+def search_snippet(request):
+    if request.method == "GET":
+        form = SearchForm()
+        return render(request, "snippets/search_snippet.html", {"form": form})
+    else:
+        title_search = request.POST["title"]
+        body_search = request.POST["body"]
+        language_search = request.POST["language"]
+        if title_search:
+            results = Snippet.objects.filter(title__contains=title_search)
+        elif body_search:
+            results = Snippet.objects.filter(body__contains=body_search)
+        elif language_search:
+            results = Snippet.objects.filter(language__contains=language_search)
+        return render(request, "snippets/search_results.html", {"results": results})
+        

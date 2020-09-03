@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Search Results</h2>
+{% for result in results%}
+<div>{{ result.title }}</div><br>
+<div>{{ result.body }}</div><br>
+<div>{{ result.language }}</div><br>
+<div>
+    <a href="{% url 'view_snippet' result.pk %}">View Snippet</a>
+</div><br><br>
+{% endfor %}
+<div>
+    <a href="{% url 'search_snippet' %}">New Search</a>
+</div>
+{% endblock %}
+
