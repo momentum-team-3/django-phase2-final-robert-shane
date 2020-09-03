@@ -2,15 +2,14 @@
 
 {% block content %}
     <h1>List of Snippets</h1>
-    
     {% for snippet in object_list %}
     <div>
-      {{ snippet.title }}<br>
-      {{ snippet.body }}<br>
-      {{ snippet.language }}<br>
-      {{ snippet.snippet_of }}<br>
-    </div><br>
-      <div>
+      <p class="lh-copy measure"><b>{{ snippet.title }}</b><br></p>
+      <p class="lh-copy measure">{{ snippet.body }}<br></p>
+      <p class="lh-copy measure">{{ snippet.language }}<br></p>
+      <p class="lh-copy measure">{{ snippet.snippet_of }}<br></p>
+    </div><br> 
+    <div>
         <a href="{% url 'view_snippet' snippet.pk %}">View Snippet</a>
   </div><br><br>
     {% endfor %}
