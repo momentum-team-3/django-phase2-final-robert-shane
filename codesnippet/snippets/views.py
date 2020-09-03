@@ -19,9 +19,9 @@ class list_user_snippet(LoginRequiredMixin, ListView):
     model = Snippet
     template_name = "snippets/list_user_snippet.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["object_list"] = Snippet.objects.filter(self.request.user==object.snippet_of)
+    #def get_context_data(self, **kwargs):
+        #context = super().get_context_data(**kwargs)
+        #context["object_list"] = Snippet.objects.filter(snippet_of=self.request.user)
 
     
 class view_snippet(DetailView):
@@ -29,12 +29,12 @@ class view_snippet(DetailView):
     template_name = "snippets/view_snippet.html"
 
 
-class add_snippet(LoginRequiredMixin, CreateView):
-    login_url = "login_user"
-    model = Snippet
-    fields = ['title', 'body', 'language']
-    template_name = "snippets/add_snippet.html"
-    success_url = reverse_lazy("list_snippet")
+#class add_snippet(LoginRequiredMixin, CreateView):
+    #login_url = "login_user"
+    #model = Snippet
+    #fields = ['title', 'body', 'language']
+    #template_name = "snippets/add_snippet.html"
+    #success_url = reverse_lazy("list_snippet")
 
 class delete_snippet(LoginRequiredMixin, DeleteView):
     login_url = "login_user"
@@ -52,18 +52,19 @@ class edit_snippet(LoginRequiredMixin, UpdateView):
 
 
 def copy_snippet(request, pk):
-    snippet = Snippet.objects.get(pk)
-    copy = copy.deepcopy(snippet)
+    snippet_instance = get_object_or_404(Snippet, pk=pk)
+    snippet_copy = copy.deepcopy(snippet_instance)
     if request.method == "GET":
-        form = Snippet_Form(instance=snippet)
+        form = Snippet_Form(snippet_copy)
     else:
-        form = Snippet_Form(data=request.POST, instance=copy)
+        form = Snippet_Form(request.POST, snippet_copy)
         if form.is_valid():
-            form.save()
+            snippet = form.save(commit=False)
+            snippet.snippet_of = request.user
+            snippet.save()
             return redirect("list_user_snippet")
     return render(request, "snippets/copy_snippet.html", {
         "form": form,
-        "copy": copy
     })
 
 
@@ -82,4 +83,19 @@ def search_snippet(request):
         elif language_search:
             results = Snippet.objects.filter(language__contains=language_search)
         return render(request, "snippets/search_results.html", {"results": results})
-        
+
+def add_snippet(request):
+    if request.method == "GET":
+        form = Snippet_Form()
+    else:
+        form = Snippet_Form(request.POST)
+        if form.is_valid():
+            snippet = form.save(commit=False)
+            snippet.snippet_of = request.user
+            snippet.save()
+            return redirect("list_user_snippet")
+    return render(request, "snippets/add_snippet.html", {
+        "form": form,
+    })
+            
+

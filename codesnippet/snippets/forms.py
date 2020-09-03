@@ -7,8 +7,7 @@ class Snippet_Form(ModelForm):
         fields = [
             'title',
             'body',
-            'description',
-            'tags',
+            'language',
         ]
 
 class SearchForm(Form):

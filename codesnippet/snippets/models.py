@@ -1,4 +1,4 @@
-from django.db.models import Model, CharField, TextField, ManyToManyField, ForeignKey, RESTRICT
+from django.db.models import Model, CharField, TextField, ManyToManyField, ForeignKey, CASCADE
 from users.models import User
 
 # Create your models here.
@@ -8,7 +8,7 @@ class Snippet(Model):
     description = TextField(null=True, blank=True)
     language = CharField(max_length=50, default="HTML", null=False, blank=False)
     tags = ManyToManyField("Tag")
-    snippet_of = ForeignKey(User, on_delete=RESTRICT, blank=True, null=True)
+    snippet_of = ForeignKey(User, on_delete=CASCADE, blank=True, null=True)
 
 class Tag(Model):
     tagname = CharField(max_length=255, null=False, unique=True)

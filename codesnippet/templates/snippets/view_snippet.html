@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div>{{ object.title }}</div><br>
-    <div>{{ object.body }}</div><br>
-    <div>{{ object.language }}</div><br>
+    <div>{{ snippet.title }}</div><br>
+    <div>{{ snippet.body }}</div><br>
+    <div>{{ snippet.language }}</div><br>
     <p>
+    {% if request.user.is_authenticated and request.user != object.snippet_of %}
+        <a href="{% url 'copy_snippet' snippet.pk %}">Copy Snippet</a>   
+    {% else %}
         <a href="{% url 'edit_snippet' snippet.pk %}">Edit</a>
         <a href="{% url 'delete_snippet' snippet.pk %}">Delete</a>
+    {% endif %}
     </p>
 {% endblock %}
 
